@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>EnvMirror — Compare .env files across environments, privately</title>
+    <meta
+      name="description"
+      content="Compare Local, Staging, and Production environment variable configurations in your browser. Find missing, extra, and duplicate keys — secret values are excluded from comparison results and exports. Browser-only processing."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#4f46e5" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="EnvMirror" />
+    <meta property="og:title" content="EnvMirror — Compare .env files across environments, privately" />
+    <meta
+      property="og:description"
+      content="Find missing, extra, and duplicate environment variable keys across Local, Staging, and Production. Values stay in the input editors and are excluded from results and exports."
+    />
+    <meta name="twitter:card" content="summary" />
+
+    <script>
+      // Set the theme before first paint to avoid a flash of the wrong scheme.
+      // Only the theme preference (no user content) is ever persisted.
+      (function () {
+        try {
+          var stored = localStorage.getItem('envmirror-theme');
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>EnvMirror requires JavaScript because all processing happens locally in your browser.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
