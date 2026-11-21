@@ -1,0 +1,42 @@
+name: EnvMirror CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Lint, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        # actions/checkout v4 (pinned to commit: verified live v4 release head)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Setup Node.js 22
+        # actions/setup-node v4 (pinned to commit: verified live v4 release head)
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies (lockfile-respecting)
+        run: npm ci
+
+      - name: Lint (Oxlint)
+        run: npm run lint
+
+      - name: Unit tests (Vitest)
+        run: npm run test:run
+
+      # TypeScript type checking runs inside the production build (tsc -b && vite build).
+
+      - name: Production build (type check + Vite)
+        run: npm run build

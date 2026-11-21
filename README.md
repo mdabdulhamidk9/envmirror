@@ -83,6 +83,13 @@ Browser QA: serve the production build (`npm run build && npm run preview`) and 
 `node scripts/qa-browser.mjs` / `node scripts/qa-part2.mjs` (requires Playwright). See
 `docs/FINAL-QA-REPORT.md` for the latest audited results.
 
+## Continuous Integration
+
+GitHub Actions runs on every push to `main` and on pull requests targeting `main`. The
+`EnvMirror CI` workflow executes `npm ci`, Oxlint, the Vitest unit suite, and the production
+build (which includes the TypeScript type check via `tsc -b`). All checks must pass for CI
+to be green; results are visible in the repository's **Actions** tab.
+
 ## Deployment
 
 Static Vite application — deploy the `dist/` folder (e.g., Cloudflare Pages:
