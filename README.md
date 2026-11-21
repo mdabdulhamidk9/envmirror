@@ -92,9 +92,18 @@ to be green; results are visible in the repository's **Actions** tab.
 
 ## Deployment
 
-Static Vite application — deploy the `dist/` folder (e.g., Cloudflare Pages:
-build command `npm run build`, output directory `dist`, production branch `main`).
-No server configuration or environment variables are required.
+EnvMirror is deployed to **GitHub Pages** from this repository:
+
+- **Production URL:** https://mdabdulhamidk9.github.io/envmirror/
+- The `Deploy to GitHub Pages` workflow (`.github/workflows/deploy.yml`) builds the site
+  with `npm run build` and deploys the `dist/` output **automatically on every push to
+  `main`**.
+- Manual deployments are supported via **workflow dispatch** (repository → Actions →
+  `Deploy to GitHub Pages` → Run workflow).
+- Required repository setting: **Settings → Pages → Build and deployment → Source →
+  "GitHub Actions"**.
+- Vite is configured with `base: '/envmirror/'` so all assets resolve under the repository
+  subpath. No backend, database, or environment variables are required.
 
 ## Known limitations
 
